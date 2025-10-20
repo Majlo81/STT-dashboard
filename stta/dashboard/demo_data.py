@@ -58,7 +58,10 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
         'silence_ratio': silence_times / total_durations,
         'overlap_ratio': overlap_times / total_durations,
         'switches_per_min': speaker_switches / (total_durations / 60.0),
-        'interruptions_total': np.random.randint(1, 20, num_calls)
+        'interruptions_total': np.random.randint(1, 20, num_calls),
+        'speech_to_silence_ratio': speech_times / silence_times,
+        'interruptions_by_agent': np.random.randint(0, 12, num_calls),
+        'interruptions_by_customer': np.random.randint(0, 12, num_calls)
     })
     
     # SPEAKER METRICS
@@ -68,16 +71,22 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
         
         for speaker in ['AGENT', 'CUSTOMER']:
             speaking_time = np.random.uniform(0.2, 0.5) * call_dur
+            apportioned_time = speaking_time * 0.95
+            turn_count = np.random.randint(5, 40)
+            
             speaker_rows.append({
                 'call_id': call_id,
                 'speaker': speaker,
                 'utterance_count': np.random.randint(5, 40),
                 'total_speaking_time': speaking_time,
-                'apportioned_speaking_time': speaking_time * 0.95,
+                'apportioned_speaking_time': apportioned_time,
                 'total_words': np.random.randint(50, 800),
                 'words_per_minute': np.random.uniform(120, 180) if speaker == 'AGENT' else np.random.uniform(100, 160),
                 'avg_utterance_duration': np.random.uniform(2, 6),
-                'max_utterance_duration': np.random.uniform(10, 30)
+                'max_utterance_duration': np.random.uniform(10, 30),
+                'apportioned_proportion': apportioned_time / call_dur,
+                'turn_count': turn_count,
+                'dialog_balance_gini': np.random.uniform(0.2, 0.6)  # Gini coefficient for balance
             })
     
     speaker_metrics_df = pd.DataFrame(speaker_rows)
@@ -91,9 +100,13 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
         'empty_text_count': np.random.randint(0, 5, num_calls),
         'unknown_speaker_count': np.random.randint(0, 3, num_calls),
         'valid_time_ratio': np.random.uniform(0.85, 1.0, num_calls),
+        'invalid_time_ratio': np.random.uniform(0.0, 0.15, num_calls),
         'empty_text_ratio': np.random.uniform(0.0, 0.1, num_calls),
         'unknown_speaker_ratio': np.random.uniform(0.0, 0.05, num_calls),
-        'quality_score': np.random.uniform(0.7, 1.0, num_calls)
+        'quality_score': np.random.uniform(0.7, 1.0, num_calls),
+        'call_duration_meta': total_durations + np.random.uniform(-5, 5, num_calls),  # Slight variance
+        'call_duration_computed': total_durations,
+        'metadata_timeline_delta': np.random.uniform(-2, 2, num_calls)
     })
     
     # TEXT STATISTICS
