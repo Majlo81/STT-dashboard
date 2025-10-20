@@ -169,16 +169,18 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
         
         for i in range(num_utts):
             duration = np.random.uniform(1.5, 8.0)
+            end_time = start_time + duration
             utterance_rows.append({
                 'call_id': call_id,
                 'idx': i,
                 'speaker': 'AGENT' if i % 2 == 0 else 'CUSTOMER',
                 'start_sec': start_time,
-                'end_sec': start_time + duration,
+                'end_sec': end_time,
+                'duration_sec': duration,
                 'text': np.random.choice(sample_texts),
                 'valid_time': True
             })
-            start_time += duration + np.random.uniform(0.3, 2.0)
+            start_time = end_time + np.random.uniform(0.3, 2.0)
     
     utterances_df = pd.DataFrame(utterance_rows)
     
