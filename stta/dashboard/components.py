@@ -259,28 +259,37 @@ def render_quality_flags(quality_metrics: pd.Series):
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric(
-            "Invalid Timestamps",
-            f"{quality_metrics['invalid_time_ratio']:.1%}",
-            help="Ratio of utterances with invalid time data"
-        )
+        if 'invalid_time_ratio' in quality_metrics:
+            st.metric(
+                "Invalid Timestamps",
+                f"{quality_metrics['invalid_time_ratio']:.1%}",
+                help="Ratio of utterances with invalid time data"
+            )
+        else:
+            st.metric("Invalid Timestamps", "N/A")
     
     with col2:
-        st.metric(
-            "Unknown Speakers",
-            f"{quality_metrics['unknown_speaker_ratio']:.1%}",
-            help="Ratio of utterances with unmapped speaker labels"
-        )
+        if 'unknown_speaker_ratio' in quality_metrics:
+            st.metric(
+                "Unknown Speakers",
+                f"{quality_metrics['unknown_speaker_ratio']:.1%}",
+                help="Ratio of utterances with unmapped speaker labels"
+            )
+        else:
+            st.metric("Unknown Speakers", "N/A")
     
     with col3:
-        st.metric(
-            "Empty Text Segments",
-            f"{quality_metrics['empty_text_ratio']:.1%}",
-            help="Ratio of utterances with no text content"
-        )
+        if 'empty_text_ratio' in quality_metrics:
+            st.metric(
+                "Empty Text Segments",
+                f"{quality_metrics['empty_text_ratio']:.1%}",
+                help="Ratio of utterances with no text content"
+            )
+        else:
+            st.metric("Empty Text Segments", "N/A")
     
     # Metadata comparison
-    if quality_metrics['metadata_timeline_delta'] is not None:
+    if 'metadata_timeline_delta' in quality_metrics and quality_metrics['metadata_timeline_delta'] is not None:
         st.markdown("---")
         st.subheader("Metadata vs Computed")
         

@@ -1154,10 +1154,22 @@ def main():
             st.markdown(f"**Status:** :{color}[{'Excellent' if quality_score >= 0.9 else 'Good' if quality_score >= 0.7 else 'Poor'}]")
         
         with col3:
-            st.metric(
-                "Valid Utterances",
-                f"{quality_metrics['valid_utterances']}/{quality_metrics['total_utterances']}"
-            )
+            # Safe fallback for valid_utterances (may not exist in real data)
+            if 'valid_utterances' in quality_metrics and 'total_utterances' in quality_metrics:
+                st.metric(
+                    "Valid Utterances",
+                    f"{int(quality_metrics['valid_utterances'])}/{int(quality_metrics['total_utterances'])}"
+                )
+            elif 'total_utterances' in quality_metrics:
+                st.metric(
+                    "Total Utterances",
+                    int(quality_metrics['total_utterances'])
+                )
+            else:
+                st.metric(
+                    "Total Utterances",
+                    int(call_metrics['total_utterances'])
+                )
         
         st.markdown("---")
         
