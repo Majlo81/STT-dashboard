@@ -1,0 +1,61 @@
+# STT Analytics Platform - Speaker Label Normalization
+# Maps raw speaker labels → standardized categories
+
+# Standardized categories: AGENT, CUSTOMER, OTHER, UNKNOWN
+
+categories:
+  - AGENT
+  - CUSTOMER
+  - OTHER
+  - UNKNOWN
+
+map:
+  # English labels
+  "agent": "AGENT"
+  "operator": "AGENT"
+  "representative": "AGENT"
+  "support": "AGENT"
+  
+  "customer": "CUSTOMER"
+  "client": "CUSTOMER"
+  "caller": "CUSTOMER"
+  "user": "CUSTOMER"
+  
+  # Czech labels  
+  "zákazník": "CUSTOMER"
+  "klient": "CUSTOMER"
+  "volající": "CUSTOMER"
+  
+  "operátor": "AGENT"
+  "agent": "AGENT"
+  
+  "Bot": "OTHER"
+  "IVR": "OTHER"
+  "system": "OTHER"
+  
+  # Explicit unknown
+  "Unknown": "UNKNOWN"
+  "N/A": "UNKNOWN"
+  "": "UNKNOWN"
+  "null": "UNKNOWN"
+
+# Default category for unmapped labels
+default: "UNKNOWN"
+
+# Category descriptions (for documentation)
+categories:
+  AGENT:
+    description: "Call center agent, operator, representative"
+    color: "#2E86AB"
+  
+  CUSTOMER:
+    description: "Customer, client, caller"
+    color: "#A23B72"
+  
+  OTHER:
+    description: "System messages, IVR, third parties"
+    color: "#F18F01"
+  
+  UNKNOWN:
+    description: "Unidentified or unmapped speaker"
+    color: "#C73E1D"

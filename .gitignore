@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Data (keep structure, ignore content)
+data/raw/*.csv
+data/clean/*.parquet
+!data/raw/.gitkeep
+!data/clean/.gitkeep
+
+# Artifacts
+artifacts/*.log
+artifacts/*.json
+artifacts/reports/*.pdf
+artifacts/charts/*.png
+!artifacts/reports/.gitkeep
+!artifacts/charts/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.hypothesis/
+
+# Logs
+*.log
+
+# Type checking
+.mypy_cache/
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Config overrides
+config/local.yml
+
+# Temporary
+*.tmp
+temp/

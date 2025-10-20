@@ -1,0 +1,15 @@
+call_id;direction;agent_id;call_duration;speaker;start_time;end_time;text
+CALL_002;OUTBOUND;AG456;85.0;;;;
+;;;;;Agent;0.0;4.5;Dobrý den, volám z prodejního oddělení.
+;;;;;Customer;3.0;6.5;Ano, poslouchám.
+;;;;;Agent;6.8;12.0;Chtěl bych vám nabídnout naši novou službu.
+;;;;;Customer;10.5;14.2;Moment, nejsem si jistý jestli mám zájem.
+;;;;;Agent;14.5;18.0;Rozumím, mohu vám to alespoň krátce představit?
+;;;;;Customer;18.2;20.5;Dobře, prosím.
+;;;;;Agent;20.8;28.5;Jedná se o prémiový balíček se slevou třicet procent.
+;;;;;Customer;28.7;32.0;Kolik to stojí měsíčně?
+;;;;;Agent;32.2;36.5;Standardně 500 korun, se slevou 350 korun.
+;;;;;Customer;36.8;40.0;To je zajímavé. Můžu si to rozmyslet?
+;;;;;Agent;40.2;45.0;Samozřejmě, rád vám pošlu informační email.
+;;;;;Customer;45.2;47.5;Ano, to by bylo skvělé.
+;;;;;Agent;47.8;52.0;Děkuji za váš čas. Mějte hezký den.

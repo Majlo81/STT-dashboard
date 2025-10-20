@@ -1,0 +1,15 @@
+call_id;direction;agent_id;agent_name;call_duration;language;speaker;start_time;end_time;text
+CALL_001;INBOUND;AG123;Jan Novák;125.5;cs-CZ;;;;;;
+;;;;;;Agent;0.0;3.5;Dobrý den, tady zákaznická linka. Jak vám mohu pomoci?
+;;;;;;Customer;4.0;8.2;Dobrý den, mám problém s mou objednávkou.
+;;;;;;Agent;8.5;12.0;Rozumím. Můžete mi prosím říct číslo objednávky?
+;;;;;;Customer;12.3;15.8;Ano, je to ORD-456789.
+;;;;;;Agent;16.0;22.5;Děkuji. Moment prosím, podívám se do systému.
+;;;;;;Customer;25.0;28.3;Dobře, děkuji.
+;;;;;;Agent;28.5;35.0;Vaši objednávku jsem našel. Vidím že je ve stavu zpracování.
+;;;;;;Customer;35.2;40.5;Kdy přibližně dorazí? Čekal jsem ji už minulý týden.
+;;;;;;Agent;41.0;48.0;Omlouvám se za zpoždění. Podle systému by měla dorazit zítra.
+;;;;;;Customer;48.5;52.0;To je dobré. Děkuji za informaci.
+;;;;;;Agent;52.2;55.5;Není zač. Mohu ještě nějak pomoci?
+;;;;;;Customer;55.8;58.0;Ne, to je vše. Děkuji.
+;;;;;;Agent;58.2;61.5;Děkuji za váš čas. Hezký den přeji.

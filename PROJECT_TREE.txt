@@ -1,0 +1,180 @@
+STT Analytics Platform - Project Structure
+==========================================
+
+windsurf-project/
+│
+├── 📄 Core Documentation
+│   ├── README.md                    # Main documentation (8KB)
+│   ├── QUICKSTART.md                # 5-minute setup guide
+│   ├── PROGRESS.md                  # Development tracker
+│   ├── CHANGELOG.md                 # Version history
+│   ├── TESTING.md                   # Test procedures
+│   ├── IMPLEMENTATION_SUMMARY.md    # Technical summary
+│   └── PROJECT_STATUS.md            # Current status
+│
+├── 📚 Extended Documentation
+│   └── docs/
+│       ├── ARCHITECTURE.md          # System design (15KB)
+│       └── METRICS_REFERENCE.md     # Formula reference (12KB)
+│
+├── ⚙️ Configuration
+│   ├── .gitignore                   # Git exclusions
+│   ├── requirements.txt             # Python dependencies (pinned)
+│   ├── pyproject.toml               # Package metadata
+│   ├── pytest.ini                   # Test configuration
+│   └── config/
+│       ├── default.yml              # Global settings
+│       └── speakers.yml             # Speaker label mapping
+│
+├── 🚀 One-Click Launcher
+│   └── oneclick.bat                 # Windows launcher script
+│
+├── 📦 Python Package (stta/)
+│   ├── __init__.py                  # Package metadata (v0.1.0)
+│   ├── cli.py                       # Typer CLI (4 commands)
+│   │
+│   ├── 📥 io/                       # Data Ingestion
+│   │   ├── __init__.py
+│   │   ├── reader.py                # Multi-encoding CSV reader
+│   │   └── writer.py                # Parquet writer
+│   │
+│   ├── 📋 schemas/                  # Data Validation
+│   │   ├── __init__.py
+│   │   ├── calls.py                 # Pandera schema for calls
+│   │   └── utterances.py            # Pandera schema for utterances
+│   │
+│   ├── 📊 metrics/                  # Metric Computation
+│   │   ├── __init__.py
+│   │   ├── timeline.py              # Sweep-line algorithm ⭐
+│   │   ├── call_level.py            # Call metrics (17 metrics)
+│   │   ├── speaker_level.py         # Speaker metrics (10/speaker)
+│   │   ├── quality.py               # Quality metrics (14 metrics)
+│   │   └── registry.py              # Plugin system
+│   │
+│   ├── 🎨 dashboard/                # Visualization
+│   │   ├── __init__.py
+│   │   ├── app.py                   # Streamlit app (5 tabs)
+│   │   └── components.py            # Reusable chart components
+│   │
+│   ├── 📄 report/                   # PDF Generation
+│   │   ├── __init__.py
+│   │   └── pdf.py                   # ReportLab + kaleido
+│   │
+│   └── 🛠️ utils/                    # Utilities
+│       ├── __init__.py
+│       ├── timecode.py              # Time parsing (HH:MM:SS.mmm)
+│       ├── text.py                  # Text utilities (word count)
+│       ├── logging.py               # Loguru configuration
+│       └── validation.py            # Input validation
+│
+├── 🧪 Tests (tests/)
+│   ├── __init__.py
+│   ├── test_timecode.py             # Time parsing tests
+│   ├── test_text.py                 # Text utility tests
+│   ├── test_timeline.py             # Sweep-line tests (invariants)
+│   └── data/                        # Test Data
+│       ├── sample_call.csv          # Basic call scenario
+│       └── sample_call_with_overlap.csv  # Overlapping speech
+│
+├── 💾 Data Directories
+│   ├── data/
+│   │   ├── raw/                     # Input CSV files (place here) 📥
+│   │   │   └── .gitkeep
+│   │   └── clean/                   # Output Parquet files 📦
+│   │       ├── .gitkeep
+│   │       ├── calls.parquet        # (generated)
+│   │       ├── utterances.parquet   # (generated)
+│   │       ├── call_metrics.parquet # (generated)
+│   │       ├── speaker_metrics.parquet # (generated)
+│   │       └── quality_metrics.parquet # (generated)
+│   │
+│   └── artifacts/                   # Generated Artifacts
+│       ├── reports/                 # PDF reports 📄
+│       │   └── .gitkeep
+│       ├── charts/                  # Exported charts 📈
+│       │   └── .gitkeep
+│       └── run.log                  # (generated) Execution logs
+│
+└── 🔧 Development
+    └── .vincent/                    # Windsurf metadata
+
+==========================================
+File Statistics
+==========================================
+
+Python Modules:        24 files
+Test Files:            4 files
+Configuration:         6 files
+Documentation:         10 files
+Sample Data:           2 files
+-------------------------------------------
+Total Files:           52 files
+
+Lines of Code:         ~5,000 lines
+  - Core logic:        ~3,000
+  - Tests:             ~500
+  - Docs:              ~1,500
+
+==========================================
+Key Files Quick Reference
+==========================================
+
+🚀 START HERE
+  → oneclick.bat             # One-click launcher
+  → README.md                # Main documentation
+  → QUICKSTART.md            # 5-minute setup
+
+📖 LEARN MORE
+  → docs/ARCHITECTURE.md     # System design
+  → docs/METRICS_REFERENCE.md # All formulas
+  → IMPLEMENTATION_SUMMARY.md # What was built
+
+⚙️ CONFIGURE
+  → config/default.yml       # All settings
+  → config/speakers.yml      # Speaker mapping
+
+🔧 DEVELOP
+  → stta/cli.py              # CLI entry point
+  → stta/metrics/timeline.py # Core algorithm
+  → stta/dashboard/app.py    # Dashboard UI
+
+🧪 TEST
+  → pytest.ini               # Test config
+  → tests/test_*.py          # Unit tests
+  → tests/data/*.csv         # Sample data
+
+==========================================
+Data Flow
+==========================================
+
+1. Place CSV files → data/raw/
+2. Run: oneclick.bat
+3. Pipeline executes:
+   CSV → Parquet → Metrics → Dashboard
+4. View results:
+   - Dashboard: http://localhost:8501
+   - Data: data/clean/*.parquet
+   - Logs: artifacts/run.log
+
+==========================================
+Commands
+==========================================
+
+# Full pipeline
+oneclick.bat
+
+# Individual steps
+python -m stta.cli ingest --input data/raw --output data/clean
+python -m stta.cli compute --data data/clean
+streamlit run stta/dashboard/app.py -- --data data/clean
+
+# Testing
+pytest
+pytest --cov=stta --cov-report=html
+
+# Help
+python -m stta.cli --help
+
+==========================================
+Status: ✅ READY FOR TESTING
+==========================================
