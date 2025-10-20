@@ -114,7 +114,7 @@ echo Dashboard will open in your default browser.
 echo Press Ctrl+C in this window to stop the server.
 echo.
 
-start "" streamlit run stta/dashboard/app.py -- --data data/clean
+streamlit run streamlit_app.py
 
 REM Keep window open
 echo.
