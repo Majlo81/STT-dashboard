@@ -27,15 +27,8 @@ from stta.dashboard.components import (
 )
 
 
-# Page config
-st.set_page_config(
-    page_title="STT Analytics Platform",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 # Custom CSS - Coworkers.ai Branding
+# Note: st.set_page_config is in streamlit_app.py (entry point)
 st.markdown("""
 <style>
     /* Coworkers.ai Color Palette */
