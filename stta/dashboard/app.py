@@ -177,7 +177,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-@st.cache_data
+@st.cache_data(ttl=300)  # Cache for 5 minutes only
 def load_data(data_dir: Path):
     """Load all Parquet data (real or demo)."""
     # Try to load real data first

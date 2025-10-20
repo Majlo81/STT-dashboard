@@ -12,12 +12,25 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
     np.random.seed(42)
     call_ids = [f'call_{i:05d}' for i in range(num_calls)]
     
-    # CALLS
+    # CALLS - Generate realistic date distribution
     start_date = datetime.now() - timedelta(days=90)
+    
+    # Create more realistic call distribution (more calls on weekdays, business hours)
+    call_dates = []
+    for i in range(num_calls):
+        # Random day in last 90 days
+        day_offset = np.random.randint(0, 90)
+        # Random hour (weighted towards business hours 8-18)
+        hour = int(np.random.choice(range(24), p=[0.01]*8 + [0.08]*10 + [0.02]*6))
+        minute = np.random.randint(0, 60)
+        call_date = start_date + timedelta(days=day_offset, hours=hour, minutes=minute)
+        call_dates.append(call_date)
+    
     calls_df = pd.DataFrame({
         'call_id': call_ids,
-        'call_start_meta': [start_date + timedelta(hours=i*2) for i in range(num_calls)],
-        'source_file': [f'demo_file_{i//100}.csv' for i in range(num_calls)]
+        'call_start_meta': sorted(call_dates),  # Sort by date
+        'source_file': [f'demo_file_{i//100}.csv' for i in range(num_calls)],
+        'direction': np.random.choice(['INBOUND', 'OUTBOUND'], num_calls, p=[0.7, 0.3])
     })
     
     # CALL METRICS
