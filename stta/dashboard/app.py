@@ -1156,7 +1156,7 @@ def main():
         with col3:
             st.metric(
                 "Valid Utterances",
-                f"{call_metrics['valid_utterances']}/{call_metrics['total_utterances']}"
+                f"{quality_metrics['valid_utterances']}/{quality_metrics['total_utterances']}"
             )
         
         st.markdown("---")
