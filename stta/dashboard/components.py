@@ -117,12 +117,15 @@ def render_timeline_gantt(utterances_df: pd.DataFrame, speaker_metrics: pd.DataF
     # Prepare data for Gantt
     gantt_data = []
     for _, row in valid_utts.iterrows():
+        # Calculate duration if not present (backward compatibility)
+        duration = row.get('duration_sec', row['end_sec'] - row['start_sec'])
+        
         gantt_data.append({
             'Task': f"{row['speaker']}",
             'Start': row['start_dt'],
             'Finish': row['end_dt'],
             'Resource': row['speaker'],
-            'Duration': f"{row['duration_sec']:.1f}s",
+            'Duration': f"{duration:.1f}s",
             'Text': row['text'][:50] + '...' if len(row['text']) > 50 else row['text']
         })
     
