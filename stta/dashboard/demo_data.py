@@ -21,20 +21,31 @@ def generate_demo_data(num_calls: int = 500) -> Dict[str, pd.DataFrame]:
     })
     
     # CALL METRICS
+    total_durations = np.random.uniform(60, 1200, num_calls)
+    speech_times = np.random.uniform(40, 800, num_calls)
+    silence_times = np.random.uniform(10, 200, num_calls)
+    overlap_times = np.random.uniform(0, 50, num_calls)
+    speaker_switches = np.random.randint(5, 50, num_calls)
+    
     call_metrics_df = pd.DataFrame({
         'call_id': call_ids,
-        'total_duration': np.random.uniform(60, 1200, num_calls),
+        'total_duration': total_durations,
         'total_utterances': np.random.randint(10, 100, num_calls),
         'total_words': np.random.randint(100, 2000, num_calls),
-        'speech_time': np.random.uniform(40, 800, num_calls),
-        'silence_time': np.random.uniform(10, 200, num_calls),
-        'overlap_time': np.random.uniform(0, 50, num_calls),
+        'speech_time': speech_times,
+        'silence_time': silence_times,
+        'overlap_time': overlap_times,
         'unique_speakers': np.random.randint(2, 4, num_calls),
-        'speaker_switches': np.random.randint(5, 50, num_calls),
+        'speaker_switches': speaker_switches,
         'avg_gap_between_utterances': np.random.uniform(0.5, 3.0, num_calls),
         'max_gap_between_utterances': np.random.uniform(3.0, 15.0, num_calls),
         'avg_utterance_duration': np.random.uniform(2.0, 8.0, num_calls),
-        'speech_rate': np.random.uniform(0.6, 0.9, num_calls)
+        'speech_rate': np.random.uniform(0.6, 0.9, num_calls),
+        'speech_ratio': speech_times / total_durations,
+        'silence_ratio': silence_times / total_durations,
+        'overlap_ratio': overlap_times / total_durations,
+        'switches_per_min': speaker_switches / (total_durations / 60.0),
+        'interruptions_total': np.random.randint(1, 20, num_calls)
     })
     
     # SPEAKER METRICS
